@@ -58,7 +58,7 @@ export default function DashboardPage() {
   return (
     <div className="animate-in fade-in duration-700">
       
-      {/* 1. ESTADÍSTICAS */}
+      {/* 1. ESTADÍSTICAS (Ya son responsivas) */}
       <StatsGrid />
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-4">
@@ -67,21 +67,22 @@ export default function DashboardPage() {
         <div className="lg:col-span-3">
           <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden">
             
-            <div className="p-8 border-b border-slate-50 flex justify-between items-center">
+            <div className="p-6 lg:p-8 border-b border-slate-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
                 <h2 className="text-xl font-black text-slate-800 tracking-tight">Expedientes Activos</h2>
                 <p className="text-xs text-slate-400 font-medium mt-1 uppercase tracking-widest">Gestión de causas en tiempo real</p>
               </div>
               <button 
                 onClick={() => navigate('/causas/nueva')}
-                className="bg-blue-600 text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-blue-700 shadow-lg shadow-blue-100 transition-all active:scale-95 flex items-center gap-2"
+                className="w-full sm:w-auto bg-blue-600 text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-blue-700 shadow-lg shadow-blue-100 transition-all active:scale-95 flex items-center justify-center gap-2"
               >
                 <Plus size={18} />
                 Nueva Causa
               </button>
             </div>
 
-            <div className="overflow-x-auto">
+            {/* AQUÍ ESTÁ EL TRUCO DEL SCROLL: overflow-x-auto */}
+            <div className="overflow-x-auto pb-2">
               {causas.length === 0 && !loading ? (
                 <div className="py-20 flex flex-col items-center justify-center text-center px-10">
                   <div className="bg-slate-50 p-6 rounded-[2.5rem] mb-6">
@@ -93,7 +94,8 @@ export default function DashboardPage() {
                   </p>
                 </div>
               ) : (
-                <table className="w-full text-left border-collapse">
+                /* AGREGADO: min-w-[900px] para forzar el ancho y activar el scroll */
+                <table className="w-full text-left border-collapse min-w-[900px]">
                   <thead className="bg-slate-50/50 text-[10px] uppercase tracking-widest text-slate-400 font-black">
                     <tr>
                       <th className="px-8 py-5">Carátula & Identificación</th>
@@ -160,7 +162,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* 3. WIDGET DERECHO */}
+        {/* 3. WIDGET DERECHO (Agenda) */}
         <div className="lg:col-span-1">
           <ProximosVencimientos />
         </div>
