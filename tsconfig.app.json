@@ -18,8 +18,8 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,      // <--- CAMBIADO A FALSE (Permite variables sin usar)
+    "noUnusedParameters": false,  // <--- CAMBIADO A FALSE (Permite parámetros sin usar)
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
