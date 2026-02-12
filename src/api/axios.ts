@@ -1,11 +1,14 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000', // Chequeá que sea tu URL
+  // 1. LA MAGIA: Usamos la variable de entorno de Vercel.
+  // Si no existe (estás en local), usa localhost PERO CON /api AL FINAL.
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api', 
+  
+  withCredentials: true // 2. IMPORTANTE: Para que las cookies y CORS viajen bien
 });
 
 // --- INTERCEPTOR DE PETICIÓN ---
-// Esto mete el token en el sobre ANTES de enviarlo
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -17,7 +20,6 @@ api.interceptors.request.use((config) => {
 });
 
 // --- INTERCEPTOR DE RESPUESTA ---
-// Si el servidor nos dice que el token no va más, limpiamos y al login
 api.interceptors.response.use(
   (response) => response,
   (error) => {
